@@ -1,15 +1,15 @@
 export enum TYPE_OF_PIECES {
-    ROI = "Roi",
-    DAME = "Dame",
-    TOUR = "Tour",
-    FOU = "Fou",
-    CAVALIER = "Cavalier",
-    PION = "Pion",
+    KING = "King",
+    QUEEN = "Queen",
+    ROOK = "Rook",
+    BISHOP = "Bishop",
+    KNIGHT = "Knight",
+    PAWN = "Pawn",
 };
 
 export enum COLOR {
-    NOIR = "noir",
-    BLANC = 'blanc'
+    BLACK = "Black",
+    WHITE = 'White'
 }
 
 
@@ -24,6 +24,37 @@ export enum POSITION {
     H1 = "H1", H2 = "H2", H3 = "H3", H4 = "H4", H5 = "H5", H6 = "H6", H7 = "H7", H8 = "H8",
 }
 
+
+const symbolPieces: { [key: string]: { [key: string]: string } } = {
+    Pawn: {
+        Black: "♟️",
+        White: "♙"
+    },
+    Bishop: {
+        Black: "♝",
+        White: "♗"
+    },
+    King: {
+        Black: "♚",
+        White: "♔"
+    },
+    Queen: {
+        Black: "♛",
+        White: "♕"
+    },
+    Rook: {
+        Black: "♜",
+        White: "♖"
+    },
+    Knight: {
+        Black: "♞",
+        White: "♘"
+    }
+};
+
+function getPieceSymbol(type: TYPE_OF_PIECES, color: COLOR): string {
+    return symbolPieces[type][color];
+}
 
 
 class Piece  {
@@ -40,59 +71,89 @@ class Piece  {
 
     moveTo(newPosition : POSITION) {
         this.position = newPosition;
-        console.log(`${this.type} ${this.color} déplacé à ${newPosition}`);
+        console.log(`${this.type} ${this.color} mooved to ${newPosition}`);
     }
 }
 
-class Pion extends Piece {
+class Pawn extends Piece {
     constructor(color : COLOR, position : POSITION) {
-        super( TYPE_OF_PIECES.PION , color, position);
+        super( TYPE_OF_PIECES.PAWN , color, position);
     }
 }
 
-class Fou extends Piece {
+class Bishop extends Piece {
     constructor(color : COLOR, position : POSITION) {
-        super(TYPE_OF_PIECES.FOU, color, position);
+        super(TYPE_OF_PIECES.BISHOP, color, position);
     }
 }
 
-class Roi extends Piece {
+class King extends Piece {
     constructor(color : COLOR, position : POSITION) {
-        super(TYPE_OF_PIECES.ROI, color, position);
+        super(TYPE_OF_PIECES.KING, color, position);
     }
 }
 
-class Dame extends Piece {
+class Queen extends Piece {
     constructor(color : COLOR, position : POSITION) {
-        super(TYPE_OF_PIECES.DAME, color, position);
+        super(TYPE_OF_PIECES.QUEEN, color, position);
     }
 }
 
-class Tour extends Piece {
+class Rook extends Piece {
     constructor(color : COLOR, position : POSITION) {
-        super(TYPE_OF_PIECES.TOUR, color, position);
+        super(TYPE_OF_PIECES.ROOK, color, position);
     }
 }
 
-class Cavalier extends Piece {
+class Knight extends Piece {
     constructor(color : COLOR, position : POSITION) {
-        super(TYPE_OF_PIECES.CAVALIER, color, position);
+        super(TYPE_OF_PIECES.KNIGHT, color, position);
     }
 }
 
-class Echiquier {
+class Square {
+    private position: POSITION;
+    private piece: Piece | null = null;
 
-    pieces : Array<Piece>
+    constructor(position: POSITION) {
+        this.position = position;
+    }
+
+    isEmpty(): boolean {
+        return this.piece === null;
+    }
+
+    placePiece(piece: Piece): void {
+        this.piece = piece;
+    }
+
+    removePiece(): Piece | null {
+        const removedPiece = this.piece;
+        this.piece = null;
+        return removedPiece;
+    }
+
+    getPosition(): POSITION {
+        return this.position;
+    }
+
+    getPiece(): Piece | null {
+        return this.piece;
+    }
+}
+
+
+class Chessboard {
+    squares: Square[] = [];
 
     constructor() {
-        this.pieces  = []; 
+        this.init();
     }
 
-    ajouterPiece(piece) {
-        this.pieces.push(piece);
+    init(): void {
     }
 
-    afficher() {
+    display(): void {
     }
-
 }
+
