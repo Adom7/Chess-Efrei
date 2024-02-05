@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -13,6 +14,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Chessboard = exports.symbolPieces = exports.POSITION = exports.COLOR = exports.TYPE_OF_PIECES = void 0;
 var TYPE_OF_PIECES;
 (function (TYPE_OF_PIECES) {
     TYPE_OF_PIECES["KING"] = "King";
@@ -21,13 +24,13 @@ var TYPE_OF_PIECES;
     TYPE_OF_PIECES["BISHOP"] = "Bishop";
     TYPE_OF_PIECES["KNIGHT"] = "Knight";
     TYPE_OF_PIECES["PAWN"] = "Pawn";
-})(TYPE_OF_PIECES || (TYPE_OF_PIECES = {}));
+})(TYPE_OF_PIECES || (exports.TYPE_OF_PIECES = TYPE_OF_PIECES = {}));
 ;
 var COLOR;
 (function (COLOR) {
     COLOR["BLACK"] = "Black";
     COLOR["WHITE"] = "White";
-})(COLOR || (COLOR = {}));
+})(COLOR || (exports.COLOR = COLOR = {}));
 var POSITION;
 (function (POSITION) {
     POSITION["A1"] = "A1";
@@ -94,8 +97,8 @@ var POSITION;
     POSITION["H6"] = "H6";
     POSITION["H7"] = "H7";
     POSITION["H8"] = "H8";
-})(POSITION || (POSITION = {}));
-var symbolPieces = {
+})(POSITION || (exports.POSITION = POSITION = {}));
+exports.symbolPieces = {
     Pawn: {
         Black: "♟️",
         White: "♙"
@@ -122,7 +125,7 @@ var symbolPieces = {
     }
 };
 function getPieceSymbol(type, color) {
-    return symbolPieces[type][color];
+    return exports.symbolPieces[type][color];
 }
 var Piece = /** @class */ (function () {
     function Piece(type, color, position) {
@@ -265,6 +268,7 @@ var Chessboard = /** @class */ (function () {
     };
     return Chessboard;
 }());
+exports.Chessboard = Chessboard;
 var plateau = new Chessboard();
 plateau.init();
 plateau.display();

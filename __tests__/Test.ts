@@ -1,10 +1,12 @@
-const { Chessboard, TYPE_OF_PIECES, COLOR, POSITION } = require('../Pieces.js');
+import { Chessboard, TYPE_OF_PIECES, COLOR, POSITION } from '../Pieces.js';
 
-const { expect } = require('jest');
+import { describe, it, expect } from '@jest/globals';
+
 
 describe('Chessboard', () => {
     it('should initialize pieces with correct type and color', () => {
         const chessboard = new Chessboard();
+        chessboard.init();
 
         const expectedPieces = [
             { position: POSITION.A1, type: TYPE_OF_PIECES.ROOK, color: COLOR.WHITE },
@@ -60,7 +62,7 @@ describe('Chessboard', () => {
 
         emptySquares.forEach(emptySquares => {
             const square = chessboard.squares.get(emptySquares);
-            expect(square.getPiece()).toBe(null);
+            expect(square?.getPiece()).toBe(null);
         })
     });
 });
