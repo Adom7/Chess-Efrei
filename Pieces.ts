@@ -1,4 +1,4 @@
-export enum TYPE_OF_PIECES {
+enum TYPE_OF_PIECES {
     KING = "King",
     QUEEN = "Queen",
     ROOK = "Rook",
@@ -7,13 +7,13 @@ export enum TYPE_OF_PIECES {
     PAWN = "Pawn",
 };
 
-export enum COLOR {
+enum COLOR {
     BLACK = "Black",
     WHITE = 'White'
 }
 
 
-export enum POSITION {
+enum POSITION {
     A1 = "A1", A2 = "A2", A3 = "A3", A4 = "A4", A5 = "A5", A6 = "A6", A7 = "A7", A8 = "A8",
     B1 = "B1", B2 = "B2", B3 = "B3", B4 = "B4", B5 = "B5", B6 = "B6", B7 = "B7", B8 = "B8",
     C1 = "C1", C2 = "C2", C3 = "C3", C4 = "C4", C5 = "C5", C6 = "C6", C7 = "C7", C8 = "C8",
@@ -144,16 +144,76 @@ class Square {
 
 
 class Chessboard {
-    squares: Square[] = [];
+    squares: Map<POSITION, Square> = new Map();
 
     constructor() {
         this.init();
     }
 
     init(): void {
+        // Initialize squares with positions as keys
+        Object.values(POSITION).forEach(position => {
+            this.squares.set(position, new Square(position));
+        });
+
+        // Place pieces for White
+        this.squares.get(POSITION.A1)?.placePiece(new Rook(COLOR.WHITE , POSITION.A1));
+        this.squares.get(POSITION.B1)?.placePiece(new Knight(COLOR.WHITE , POSITION.B1));
+        this.squares.get(POSITION.C1)?.placePiece(new Bishop(COLOR.WHITE , POSITION.C1));
+        this.squares.get(POSITION.D1)?.placePiece(new Queen(COLOR.WHITE, POSITION.D1));
+        this.squares.get(POSITION.E1)?.placePiece(new King(COLOR.WHITE , POSITION.E1));
+        this.squares.get(POSITION.F1)?.placePiece(new Bishop(COLOR.WHITE , POSITION.F1));
+        this.squares.get(POSITION.G1)?.placePiece(new Knight(COLOR.WHITE, POSITION.G1));
+        this.squares.get(POSITION.H1)?.placePiece(new Rook(COLOR.WHITE , POSITION.H1));
+
+        
+
+        this.squares.get(POSITION.A8)?.placePiece(new Rook(COLOR.BLACK , POSITION.A8));
+        this.squares.get(POSITION.B8)?.placePiece(new Knight(COLOR.BLACK , POSITION.B8));
+        this.squares.get(POSITION.C8)?.placePiece(new Bishop(COLOR.BLACK , POSITION.C8));
+        this.squares.get(POSITION.D8)?.placePiece(new Queen(COLOR.BLACK, POSITION.D8));
+        this.squares.get(POSITION.E8)?.placePiece(new King(COLOR.BLACK , POSITION.E8));
+        this.squares.get(POSITION.F8)?.placePiece(new Bishop(COLOR.BLACK , POSITION.F8));
+        this.squares.get(POSITION.G8)?.placePiece(new Knight(COLOR.BLACK, POSITION.G8));
+        this.squares.get(POSITION.H8)?.placePiece(new Rook(COLOR.BLACK , POSITION.H8));
+
+        // Pawns
+        this.squares.get(POSITION.A2)?.placePiece(new Pawn(COLOR.BLACK , POSITION.A2))
+        this.squares.get(POSITION.B2)?.placePiece(new Pawn(COLOR.BLACK , POSITION.B2))
+        this.squares.get(POSITION.C2)?.placePiece(new Pawn(COLOR.BLACK , POSITION.C2))
+        this.squares.get(POSITION.D2)?.placePiece(new Pawn(COLOR.BLACK , POSITION.D2))
+        this.squares.get(POSITION.E2)?.placePiece(new Pawn(COLOR.BLACK , POSITION.E2))
+        this.squares.get(POSITION.F2)?.placePiece(new Pawn(COLOR.BLACK , POSITION.F2))
+        this.squares.get(POSITION.G2)?.placePiece(new Pawn(COLOR.BLACK , POSITION.G2))
+        this.squares.get(POSITION.H2)?.placePiece(new Pawn(COLOR.BLACK , POSITION.H2))
+
+        this.squares.get(POSITION.A7)?.placePiece(new Pawn(COLOR.WHITE , POSITION.A7))
+        this.squares.get(POSITION.B7)?.placePiece(new Pawn(COLOR.WHITE , POSITION.B7))
+        this.squares.get(POSITION.C7)?.placePiece(new Pawn(COLOR.WHITE , POSITION.C7))
+        this.squares.get(POSITION.D7)?.placePiece(new Pawn(COLOR.WHITE , POSITION.D7))
+        this.squares.get(POSITION.E7)?.placePiece(new Pawn(COLOR.WHITE , POSITION.E7))
+        this.squares.get(POSITION.F7)?.placePiece(new Pawn(COLOR.WHITE , POSITION.F7))
+        this.squares.get(POSITION.G7)?.placePiece(new Pawn(COLOR.WHITE , POSITION.G7))
+        this.squares.get(POSITION.H7)?.placePiece(new Pawn(COLOR.WHITE , POSITION.H7))
     }
 
     display(): void {
+        let boardStr = '';
+        const positions = Object.values(POSITION); // Ensure this is in the desired order
+        positions.forEach((position, index) => {
+            if (index % 8 === 0 && index !== 0) boardStr += '\n';
+            const square = this.squares.get(position);
+            const piece = square?.getPiece();
+            const symbol = piece ? getPieceSymbol(piece.type, piece.color) : '·';
+            boardStr += symbol + ' ';
+        });
+        console.log(boardStr);
     }
 }
+
+let plateau = new Chessboard()
+
+plateau.init()
+
+plateau.display();
 
