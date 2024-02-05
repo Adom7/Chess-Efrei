@@ -1,4 +1,4 @@
-enum TYPE_OF_PIECES {
+export enum TYPE_OF_PIECES {
     KING = "King",
     QUEEN = "Queen",
     ROOK = "Rook",
@@ -7,13 +7,13 @@ enum TYPE_OF_PIECES {
     PAWN = "Pawn",
 };
 
-enum COLOR {
+export enum COLOR {
     BLACK = "Black",
     WHITE = 'White'
 }
 
 
-enum POSITION {
+export enum POSITION {
     A1 = "A1", A2 = "A2", A3 = "A3", A4 = "A4", A5 = "A5", A6 = "A6", A7 = "A7", A8 = "A8",
     B1 = "B1", B2 = "B2", B3 = "B3", B4 = "B4", B5 = "B5", B6 = "B6", B7 = "B7", B8 = "B8",
     C1 = "C1", C2 = "C2", C3 = "C3", C4 = "C4", C5 = "C5", C6 = "C6", C7 = "C7", C8 = "C8",
@@ -25,7 +25,7 @@ enum POSITION {
 }
 
 
-const symbolPieces: { [key: string]: { [key: string]: string } } = {
+export const symbolPieces: { [key: string]: { [key: string]: string } } = {
     Pawn: {
         Black: "♟️",
         White: "♙"
@@ -143,7 +143,7 @@ class Square {
 }
 
 
-class Chessboard {
+export class Chessboard {
     squares: Map<POSITION, Square> = new Map();
 
     constructor() {
